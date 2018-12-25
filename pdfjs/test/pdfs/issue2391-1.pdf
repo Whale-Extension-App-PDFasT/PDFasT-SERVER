@@ -1,0 +1,82 @@
+%PDF-1.4
+%栒鞠
+1 0 obj 
+<<
+/Pages 2 0 R
+/Metadata 3 0 R
+/Type /Catalog
+>>
+endobj 
+2 0 obj 
+<<
+/Kids [4 0 R]
+/Count 1
+/Type /Pages
+>>
+endobj 
+4 0 obj 
+<<
+/Rotate 0
+/Parent 2 0 R
+/Resources 
+<<
+/ExtGState 5 0 R
+/Font 6 0 R
+/ProcSet [/PDF /Text]
+>>
+/MediaBox [0 0 595 842]
+/Contents 7 0 R
+/Type /Page
+>>
+endobj 
+7 0 obj 
+<<
+/Length 148
+>>
+stream
+q 0.1 0 0 0.1 0 0 cm
+/R7 gs
+0 g
+q
+10 0 0 10 0 0 cm BT
+undefined 10 Tf
+/R8 10 Tf
+1 0 0 1 29 805 Tm
+(test command with wrong number of args)Tj
+ET
+Q
+Q
+
+endstream 
+endobj 
+8 0 obj 
+<<
+/Type /ExtGState
+/OPM 1
+>>
+endobj 
+9 0 obj 
+<<
+/BaseFont /Courier
+/Subtype /Type1
+/Type /Font
+>>
+endobj 
+5 0 obj 
+<<
+/R7 8 0 R
+>>
+endobj 
+6 0 obj 
+<<
+/R8 9 0 R
+>>
+endobj 
+3 0 obj 
+<<
+/Subtype /XML
+/Length 1421
+/Type /Metadata
+>>
+stream
+<?xpacket begin='癤

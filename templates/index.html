@@ -1,0 +1,271 @@
+
+테스트
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>'Hello, world!' example</title>
+</head>
+  <link type="text/css" href="./../static/pdfjs/build/text_layer_builder.css" rel="stylesheet"></link>
+<link type="text/css" href="./../static/modal.css" rel="stylesheet"></link>
+<script type="text/javascript" src="./../static/pdfjs/build/text_layer_builder.js"></script>
+
+
+<body id="total">
+
+<div id = "divBackground" style="position: fixed; z-index: 0; height: 100%; width: 100%; top: 0; left:0; background-color: rgba(0,0,0,0.6); display:block">
+  
+	<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Modal Header</h2>
+    </div>
+    <div class="modal-body">
+      <input type="file" id=pdf-upload />
+    </div>
+    <div class="modal-footer">
+      <h3>Modal Footer</h3>
+    </div>
+  </div>
+
+</div>
+</div>
+<button id="myBtn">Open Modal</button>
+<hr/>
+<!-- <canvas></canvas> -->
+<div id="container"></div>
+
+<script src="./../static/pdfjs/build/pdf.js"></script>
+
+<script id="script">
+  // Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+var bcgDiv = document.getElementById("divBackground");
+var btn = document.getElementById("myBtn");
+
+btn.onclick = function() {
+    modal.style.display = "block";
+}     
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+	bcgDiv.style.display="none";
+	btn.style.display="none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+		btn.style.display="none";
+		bcgDiv.style.display="none";
+    }
+}
+  document.querySelector("#pdf-upload").addEventListener("change", function(e){
+  modal.style.display = "none";
+btn.style.display="none";
+bcgDiv.style.display="none";
+  var canvasElement = document.querySelector("canvas");
+  var file = e.target.files[0];
+  if(file.type != "application/pdf"){
+		alert(file.name, "is not a pdf file.")
+		return
+	}
+  
+  
+  var fileReader = new FileReader();  
+
+  fileReader.onload = function() {
+    var typedarray = new Uint8Array(this.result);
+
+    pdfjsLib.getDocument(typedarray).then(function(pdf) {
+      // you can now use *pdf* here
+      var container = document.getElementById("container");
+  var k=1;
+    // Loop from 1 to total_number_of_pages in PDF document
+    for (var i = 1; i <= pdf.numPages; i++) {
+    
+        // Get desired page
+        pdf.getPage(i).then(function(page) {
+
+          var scale = 1.5;
+          var viewport = page.getViewport(scale);
+          var div = document.createElement("div");
+
+          // Set id attribute with page-#{pdf_page_number} format
+          div.setAttribute("id", "page-" + (page.pageIndex + 1));
+
+          // This will keep positions of child elements as per our needs
+          div.setAttribute("style", "position: relative");
+
+          // Append div within div#container
+          container.appendChild(div);
+
+          // Create a new Canvas element
+          var canvas = document.createElement("canvas");
+
+          // Append Canvas within div#page-#{pdf_page_number}
+          div.appendChild(canvas);
+
+          var context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          var renderContext = {
+            canvasContext: context,
+            viewport: viewport
+          };
+
+          // Render PDF page
+          page.render(renderContext).then(function() {
+                // Get text-fragments
+                return page.getTextContent();
+            })
+            .then(function(textContent) {
+                // Create div which will hold text-fragments
+                var textLayerDiv = document.createElement("div");
+
+                // Set it's class to textLayer which have required CSS styles
+                textLayerDiv.setAttribute("class", "textLayer");
+
+                // Append newly created div in `div#page-#{pdf_page_number}`
+                div.appendChild(textLayerDiv);
+
+                // Create new instance of TextLayerBuilder class
+                var textLayer = new TextLayerBuilder({
+                textLayerDiv: textLayerDiv, 
+                pageIndex: page.pageIndex,
+                viewport: viewport
+                });
+
+                // Set text-fragments
+                textLayer.setTextContent(textContent);
+
+                // Render text-fragments
+                textLayer.render();
+			    
+       			
+            });
+			
+      
+  });
+    
+    }
+
+    });
+  };
+
+  fileReader.readAsArrayBuffer(file);
+})
+    
+  // // If absolute URL from the remote server is provided, configure the CORS
+  // // header on that server.
+  // //
+  // var url = '../static/lesson2.pdf';
+  // var finaltext="";
+  // //
+  // // The workerSrc property shall be specified.
+  // //
+  // pdfjsLib.GlobalWorkerOptions.workerSrc =
+  //   './../static/pdfjs/build/pdf.worker.js';
+
+  // //
+  // // Asynchronous download PDF
+  // //
+  // var loadingTask = pdfjsLib.getDocument(url);
+  // loadingTask.promise.then(function(pdf) {
+  //   //
+  //   // Fetch the first page
+  //   //
+  //   var container = document.getElementById("container");
+  // var k=1;
+  //   // Loop from 1 to total_number_of_pages in PDF document
+  //   for (var i = 1; i <= pdf.numPages; i++) {
+    
+  //       // Get desired page
+  //       pdf.getPage(i).then(function(page) {
+
+  //         var scale = 1.5;
+  //         var viewport = page.getViewport(scale);
+  //         var div = document.createElement("div");
+
+  //         // Set id attribute with page-#{pdf_page_number} format
+  //         div.setAttribute("id", "page-" + (page.pageIndex + 1));
+
+  //         // This will keep positions of child elements as per our needs
+  //         div.setAttribute("style", "position: relative");
+
+  //         // Append div within div#container
+  //         container.appendChild(div);
+
+  //         // Create a new Canvas element
+  //         var canvas = document.createElement("canvas");
+
+  //         // Append Canvas within div#page-#{pdf_page_number}
+  //         div.appendChild(canvas);
+
+  //         var context = canvas.getContext('2d');
+  //         canvas.height = viewport.height;
+  //         canvas.width = viewport.width;
+
+  //         var renderContext = {
+  //           canvasContext: context,
+  //           viewport: viewport
+  //         };
+
+  //         // Render PDF page
+  //         page.render(renderContext).then(function() {
+  //               // Get text-fragments
+  //               return page.getTextContent();
+  //           })
+  //           .then(function(textContent) {
+  //               // Create div which will hold text-fragments
+  //               var textLayerDiv = document.createElement("div");
+
+  //               // Set it's class to textLayer which have required CSS styles
+  //               textLayerDiv.setAttribute("class", "textLayer");
+
+  //               // Append newly created div in `div#page-#{pdf_page_number}`
+  //               div.appendChild(textLayerDiv);
+
+  //               // Create new instance of TextLayerBuilder class
+  //               var textLayer = new TextLayerBuilder({
+  //               textLayerDiv: textLayerDiv, 
+  //               pageIndex: page.pageIndex,
+  //               viewport: viewport
+  //               });
+
+  //               // Set text-fragments
+  //               textLayer.setTextContent(textContent);
+
+  //               // Render text-fragments
+  //               textLayer.render();
+       
+  //           });
+      
+  // });
+    
+  //   }
+    
+  // });
+  
+  
+
+  
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+/*background*/
+#divBackground{
+	position: fixed; 
+	z-index: 0; 
+	height: 100%; 
+	width: 100%; 
+	top: 0; 
+	left:0; 
+	background-color: rgba(0,0,0,0.6);
+	display:block;
+}
+#mymodal{
+	display :block;
+	
+}
+#container_back{
+	display : none;
+}
+
+.close{
+	user-select: none;
+	padding-right: 80px;
+	position: absolute;
+	right: -73px;
+	font-size: 25pt;
+    top: -5px;
+	z-index: 999;
+	
+}
+/* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+/* Modal Content */
+.box {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+	margin-top :25%;
+    padding: 2px 16px;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+#upload_notice {
+	user-select: none;
+	text-align: center;
+}
+

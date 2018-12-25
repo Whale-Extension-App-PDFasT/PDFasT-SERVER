@@ -1,0 +1,55 @@
+%PDF-1.7
+%栒鞠
+1 0 obj 
+<<
+/Type /Encoding
+/BaseEncoding /WinAnsiEncoding
+>>
+endobj 
+2 0 obj 
+<<
+/Pages 3 0 R
+/Type /Catalog
+>>
+endobj 
+3 0 obj 
+<<
+/Kids [4 0 R]
+/Count 1
+/Type /Pages
+>>
+endobj 
+4 0 obj 
+<<
+/Rotate 90
+/Parent 3 0 R
+/MediaBox [0 0 50 400]
+/Resources 
+<<
+/Font 
+<<
+/F1 5 0 R
+>>
+>>
+/Contents 6 0 R
+/Type /Page
+>>
+endobj 
+5 0 obj 
+<<
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding 1 0 R
+/Type /Font
+>>
+endobj 
+6 0 obj 
+<<
+/Length 108
+>>
+stream
+BT
+/F1 1 Tf
+0 24 -24 0 30 30 Tm
+0 Tw
+(
